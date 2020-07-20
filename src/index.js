@@ -6,4 +6,5 @@ class Mycomponent {
 
 }
 
-let a = < Mycomponent name = "a" / > ;
+// let a = < Mycomponent name = "a" / > ;
+let a = <div name="a"></div>

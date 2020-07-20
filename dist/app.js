@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toy-react */ \"./toy-react.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n// console.log(123)\n\n\nvar Mycomponent = function Mycomponent() {\n  _classCallCheck(this, Mycomponent);\n};\n\nvar a = _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(Mycomponent, {\n  name: \"a\"\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toy-react */ \"./toy-react.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n\n\nvar Mycomponent = function Mycomponent() {\n  _classCallCheck(this, Mycomponent);\n}; // let a = < Mycomponent name = \"a\" / > ;\n\n\nvar a = _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"div\", {\n  name: \"a\"\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ToyReact\", function() { return ToyReact; });\nvar ToyReact = {\n  createElement: function createElement() {}\n};\n\n//# sourceURL=webpack:///./toy-react.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ToyReact\", function() { return ToyReact; });\nvar ToyReact = {\n  createElement: function createElement() {\n    // debugger\n    console.log(arguments); // 参数\n  }\n};\n\n//# sourceURL=webpack:///./toy-react.js?");
 
 /***/ })
 
