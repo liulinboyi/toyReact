@@ -1,0 +1,5 @@
+export let ToyReact = {
+  createElement() {
+    
+  }
+}
