@@ -5,6 +5,18 @@ export let ToyReact = {
   createElement(type, attributes, ...children) {
     // debugger
     console.log(arguments) // 参数
-    return document.createElement(type)
+    let element = document.createElement(type)
+    for (const attr in attributes) {
+      element.setAttribute(attr, attributes[attr])
+    }
+    for (const child of children) {
+      // 可能为字符串
+      if (typeof child === 'string') {
+        child = document.createTextNode(child)
+      }
+      element.appendChild(child)
+    }
+    // document.body.appendChild(element)
+    return element
   }
 }
