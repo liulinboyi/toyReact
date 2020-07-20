@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toy-react */ \"./toy-react.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n\n\nvar Mycomponent = function Mycomponent() {\n  _classCallCheck(this, Mycomponent);\n}; // let a = < Mycomponent name = \"a\" / > ;\n\n\nvar a = _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"div\", {\n  name: \"a\"\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../toy-react */ \"./toy-react.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\n\n\nvar Mycomponent = function Mycomponent() {\n  _classCallCheck(this, Mycomponent);\n}; // let a = < Mycomponent name = \"a\" / > ;\n\n\nvar a = _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"div\", {\n  name: \"a\"\n}, _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"span\", null), _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"span\", null), _toy_react__WEBPACK_IMPORTED_MODULE_0__[\"ToyReact\"].createElement(\"span\", null));\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _toy
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ToyReact\", function() { return ToyReact; });\nvar ToyReact = {\n  createElement: function createElement() {\n    // debugger\n    console.log(arguments); // 参数\n  }\n};\n\n//# sourceURL=webpack:///./toy-react.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ToyReact\", function() { return ToyReact; });\nvar ToyReact = {\n  // type 可能是string（普通标签）、class\n  // attributes 属性\n  // children 子元素 数目不定\n  createElement: function createElement(type, attributes) {\n    for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {\n      children[_key - 2] = arguments[_key];\n    }\n\n    // debugger\n    console.log(arguments); // 参数\n\n    return document.createElement(type);\n  }\n};\n\n//# sourceURL=webpack:///./toy-react.js?");
 
 /***/ })
 

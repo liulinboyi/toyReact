@@ -7,4 +7,8 @@ class Mycomponent {
 }
 
 // let a = < Mycomponent name = "a" / > ;
-let a = <div name="a"></div>
+let a = <div name="a">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
