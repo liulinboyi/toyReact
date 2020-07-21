@@ -1,19 +1,12 @@
 import {
-  ToyReact
+  ToyReact, Component
 } from '../toy-react';
 
-class Mycomponent {
+class Mycomponent extends Component {
   render() {
     return <div>hello</div> 
   }
-  setAttribute(name, value) {
-    // 虚拟dom上的属性
-    this[name] = value
-  }
-  mounTo(parent) {
-    let vdom = this.render()
-    vdom.mounTo(parent)
-  }
+ // 方法提取出去了
 }
 
 // let a = < Mycomponent name = "a" / > ;

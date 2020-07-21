@@ -16,6 +16,17 @@ class Elementwrapper {
   }
 }
 
+export class Component { // 提取公共方法
+  setAttribute(name, value) {
+    // 虚拟dom上的属性
+    this[name] = value
+  }
+  mounTo(parent) {
+    let vdom = this.render()
+    vdom.mounTo(parent)
+  }
+}
+
 class TextWrapper {
   constructor(content) {
     this.root = document.createTextNode(content)
