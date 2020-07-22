@@ -108,82 +108,86 @@ export class Component { // 提取公共方法
 
 
 
-    // let vdom = this.vdom
-    // if (this.oldVdom) {
-    //   let isSameNode = (node1, node2) => {
-    //     if (node1.type !== node2.type) {
-    //       return false;
-    //     }
-    //     for (let name in node1.props) {
-    //       //    if(typeof node1.props[name] === " function" 
-    //       //    && typeof node2.props[name] === " function"
-    //       //    && node1.props[name].toString() === node2.props[name].toString()
-    //       //    ){
-    //       //        continue;
-    //       //    }
-    //       if (typeof node1.props[name] === "object" &&
-    //         typeof node2.props[name] === "object" &&
-    //         JSON.stringify(node1.props[name]) === JSON.stringify(node2.props[name])
-    //       ) {
-    //         continue;
-    //       }
-    //       if (node1.props[name] !== node2.props[name]) {
-    //         return false;
-    //       }
-    //     }
+    let vdom = this.vdom
+    if (this.oldVdom) {
+      let isSameNode = (node1, node2) => {
+        if (node1.type !== node2.type) {
+          return false;
+        }
+        if (Object.keys(node1).length !== Object.keys(node2).length) {
+          return false
+        }
+        for (let name in node1.props) {
+          //    if(typeof node1.props[name] === " function" 
+          //    && typeof node2.props[name] === " function"
+          //    && node1.props[name].toString() === node2.props[name].toString()
+          //    ){
+          //        continue;
+          //    }
+          if (typeof node1.props[name] === "object" &&
+            typeof node2.props[name] === "object" &&
+            JSON.stringify(node1.props[name]) === JSON.stringify(node2.props[name])
+          ) {
+            continue;
+          }
+          if (node1.props[name] !== node2.props[name]) {
+            return false;
+          }
+        }
 
-    //     if (Object.keys(node1.props).length !== Object.keys(node2.props).length)
-    //       return false;
+        if (Object.keys(node1.props).length !== Object.keys(node2.props).length) {
+          return false;
+        }
 
-    //     return true;
-    //   }
+        return true;
+      }
 
-    //   let isSameTree = (node1, node2) => {
-    //     if (!isSameNode(node1, node2)) {
-    //       return false;
-    //     }
-    //     if (node1.children.length !== node2.children.length) {
-    //       return false;
-    //     }
-    //     for (let i = 0; i < node1.children.length; i++) {
-    //       if (!isSameNode(node1.children[i], node2.children[i]))
-    //         return false;
-    //     }
-    //     return true;
-    //   }
+      let isSameTree = (node1, node2) => {
+        if (!isSameNode(node1, node2)) {
+          return false;
+        }
+        if (node1.children.length !== node2.children.length) {
+          return false;
+        }
+        for (let i = 0; i < node1.children.length; i++) {
+          if (!isSameNode(node1.children[i], node2.children[i]))
+            return false;
+        }
+        return true;
+      }
 
-    //   let replace = (newTree, oldTree, indent) => {
-    //        console.log(indent + "new", newTree);
-    //        console.log(indent + "old", oldTree);
+      let replace = (newTree, oldTree, indent) => {
+        console.log(indent + "new", newTree);
+        console.log(indent + "old", oldTree);
 
-    //     if (isSameTree(newTree, oldTree)) {
-    //       console.log("all same");
-    //       return;
-    //     }
+        if (isSameTree(newTree, oldTree)) {
+          console.log("all same");
+          return;
+        }
 
-    //     if (!isSameNode(newTree, oldTree)) {
-    //       console.log("all different");
-    //       newTree.mountTo(oldTree.range);
-    //     } else {
-    //       for (let i = 0; i < newTree.children.length; i++) {
-    //         replace(newTree.children[i], oldTree.children[i], " " + indent)
-    //       }
-    //     }
-    //   }
+        if (!isSameNode(newTree, oldTree)) {
+          console.log("all different");
+          newTree.mountTo(oldTree.range);
+        } else {
+          for (let i = 0; i < newTree.children.length; i++) {
+            replace(newTree.children[i], oldTree.children[i], " " + indent)
+          }
+        }
+      }
 
-    //   replace(vdom, this.oldVdom, "");
-    // } else {
-    //   vdom.mountTo(this.range);
-    // }
-    // this.oldVdom = vdom;
+      replace(vdom, this.oldVdom, "");
+    } else {
+      vdom.mountTo(this.range);
+    }
+    this.oldVdom = vdom;
 
 
 
     /*
     暴力替换
     */
-    this.vdom.mountTo(this.range);
-    console.log(this.vdom, 'this.vdom');
+    // this.vdom.mountTo(this.range);
+    // console.log(this.vdom, 'this.vdom');
 
 
 
