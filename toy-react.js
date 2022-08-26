@@ -1,12 +1,12 @@
 // 给type一个wrapper来处理
-let childrenSymbol = Symbol('children');
+let childrenSymbol = Symbol("children");
 
 class Elementwrapper {
   constructor(type) {
-    this.type = type
-    this[childrenSymbol] = []
-    this.props = Object.create(null)
-    this.children = []
+    this.type = type;
+    this[childrenSymbol] = [];
+    this.props = Object.create(null);
+    this.children = [];
     // this.placeholder = document.createElement("placeholder");
     // this.root = document.createElement(type)
   }
@@ -18,14 +18,14 @@ class Elementwrapper {
     // if (name === "className") name = "class";
     // this.root.setAttribute(name, value);
 
-    this.props[name] = value
+    this.props[name] = value;
   }
   // get children() {
   //   return this[childrenSymbol].map(child => child.vdom)
   // }
   appendChild(vchild) {
-    this[childrenSymbol].push(vchild)
-    this.children.push(vchild.vdom)
+    this[childrenSymbol].push(vchild);
+    this.children.push(vchild.vdom);
     // 不是真实child是虚拟child
     // const range = document.createRange();
     // if (this.root.children.length) {
@@ -38,13 +38,15 @@ class Elementwrapper {
     // vchild.mountTo(range);
   }
   get vdom() {
-    return this
+    return this;
   }
-  mountTo(range) { // 真正的parent元素
-    // range.deleteContents();
+  mountTo(range) {
+    debugger
+    // 真正的parent元素
+    range.deleteContents();
     // range.insertNode(this.root); // 讲生命周期时会大幅修改这里的代码
 
-    this.range = range
+    this.range = range;
     // this.placeholder = document.createElement("placeholder");
     // let endRange = document.createRange();
     // endRange.setStart(range.endContainer, range.endOffset);
@@ -52,16 +54,16 @@ class Elementwrapper {
     // endRange.insertNode(this.placeholder);
     this.range.deleteContents();
 
-    let element = document.createElement(this.type)
+    let element = document.createElement(this.type);
 
     for (const name in this.props) {
-      let value = this.props[name]
+      let value = this.props[name];
       if (name.match(/^on([\s\S]+)$/)) {
         const eventName = RegExp.$1.replace(/^[\s\S]/, (s) => s.toLowerCase());
         element.addEventListener(eventName, value);
       }
       if (name === "className") {
-        element.setAttribute("class", value)
+        element.setAttribute("class", value);
       }
       element.setAttribute(name, value);
     }
@@ -75,27 +77,28 @@ class Elementwrapper {
         range.setStart(element, 0);
         range.setEnd(element, 0);
       }
-      child.mountTo(range)
+      child.mountTo(range);
     }
-    range.insertNode(element)
+    range.insertNode(element);
   }
 }
 
-export class Component { // 提取公共方法
+export class Component {
+  // 提取公共方法
   constructor() {
-    this.children = []
-    this.props = Object.create(null)
+    this.children = [];
+    this.props = Object.create(null);
   }
   get type() {
-    return this.constructor.name
+    return this.constructor.name;
   }
   setAttribute(name, value) {
     if (name.match(/^on([\s\S]+)$/)) {
       // console.log(RegExp.$1)
     }
     // 虚拟dom上的属性
-    this[name] = value
-    this.props[name] = value
+    this[name] = value;
+    this.props[name] = value;
   }
   mountTo(range) {
     // let vdom = this.render()
@@ -104,29 +107,27 @@ export class Component { // 提取公共方法
     this.update();
   }
   update() {
-
-
-
-
-    let vdom = this.vdom
+    let vdom = this.vdom;
     if (this.oldVdom) {
       let isSameNode = (node1, node2) => {
         if (node1.type !== node2.type) {
           return false;
         }
         if (Object.keys(node1).length !== Object.keys(node2).length) {
-          return false
+          return false;
         }
         for (let name in node1.props) {
-          //    if(typeof node1.props[name] === " function" 
+          //    if(typeof node1.props[name] === " function"
           //    && typeof node2.props[name] === " function"
           //    && node1.props[name].toString() === node2.props[name].toString()
           //    ){
           //        continue;
           //    }
-          if (typeof node1.props[name] === "object" &&
+          if (
+            typeof node1.props[name] === "object" &&
             typeof node2.props[name] === "object" &&
-            JSON.stringify(node1.props[name]) === JSON.stringify(node2.props[name])
+            JSON.stringify(node1.props[name]) ===
+              JSON.stringify(node2.props[name])
           ) {
             continue;
           }
@@ -135,12 +136,14 @@ export class Component { // 提取公共方法
           }
         }
 
-        if (Object.keys(node1.props).length !== Object.keys(node2.props).length) {
+        if (
+          Object.keys(node1.props).length !== Object.keys(node2.props).length
+        ) {
           return false;
         }
 
         return true;
-      }
+      };
 
       let isSameTree = (node1, node2) => {
         if (!isSameNode(node1, node2)) {
@@ -150,11 +153,10 @@ export class Component { // 提取公共方法
           return false;
         }
         for (let i = 0; i < node1.children.length; i++) {
-          if (!isSameNode(node1.children[i], node2.children[i]))
-            return false;
+          if (!isSameNode(node1.children[i], node2.children[i])) return false;
         }
         return true;
-      }
+      };
 
       let replace = (newTree, oldTree, indent) => {
         console.log(indent + "new", newTree);
@@ -170,10 +172,10 @@ export class Component { // 提取公共方法
           newTree.mountTo(oldTree.range);
         } else {
           for (let i = 0; i < newTree.children.length; i++) {
-            replace(newTree.children[i], oldTree.children[i], " " + indent)
+            replace(newTree.children[i], oldTree.children[i], " " + indent);
           }
         }
-      }
+      };
 
       replace(vdom, this.oldVdom, "");
     } else {
@@ -181,15 +183,11 @@ export class Component { // 提取公共方法
     }
     this.oldVdom = vdom;
 
-
-
     /*
     暴力替换
     */
     // this.vdom.mountTo(this.range);
     // console.log(this.vdom, 'this.vdom');
-
-
 
     // let placeholder = document.createElement("placeholder");
     // let range = document.createRange();
@@ -203,58 +201,62 @@ export class Component { // 提取公共方法
     // placeholder.parentNode.removeChild(placeholder);
   }
   appendChild(vchild) {
-    this.children.push(vchild)
+    this.children.push(vchild);
   }
   get vdom() {
-    const vdom = this.render()
-    return vdom
+    const vdom = this.render();
+    return vdom;
   }
   setState(state) {
     let merge = (oldState, newState) => {
       for (const p in newState) {
-        if (Object.prototype.toString.call(newState[p]) === '[object Object]') { // 判断 是对象并且不是null和数组
-          if (typeof oldState[p] !== 'object') {
+        if (Object.prototype.toString.call(newState[p]) === "[object Object]") {
+          // 判断 是对象并且不是null和数组
+          if (typeof oldState[p] !== "object") {
             // debugger
-            oldState[p] = {}
+            oldState[p] = {};
           }
-          merge(oldState[p], newState[p])
-        } else if (Object.prototype.toString.call(newState[p]) === '[object Array]') {
+          merge(oldState[p], newState[p]);
+        } else if (
+          Object.prototype.toString.call(newState[p]) === "[object Array]"
+        ) {
           if (!Array.isArray(oldState[p])) {
             // debugger
-            oldState[p] = []
+            oldState[p] = [];
           }
-          merge(oldState[p], newState[p])
+          merge(oldState[p], newState[p]);
         } else {
-          oldState[p] = newState[p]
+          oldState[p] = newState[p];
         }
       }
-    }
+    };
     if (!this.state && state) {
-      debugger
-      this.state = {}
+      debugger;
+      this.state = {};
     }
-    merge(this.state, state)
+    merge(this.state, state);
     // console.log(this.state);
-    this.update()
+    this.update();
   }
 }
 
 class TextWrapper {
   constructor(content) {
-    this.root = document.createTextNode(content)
-    this.type = "#text"
-    this.children = []
-    this.props = Object.create(null)
+    this.root = document.createTextNode(content);
+    this.type = "#text";
+    this.children = [];
+    this.props = Object.create(null);
   }
-  mountTo(range) { // 真正的parent元素
+  mountTo(range) {
+    // 真正的parent元素
     // debugger
     // parent.appendChild(this.root) // 讲生命周期时会大幅修改这里的代码
-    this.range = range
+    this.range = range;
     range.deleteContents();
     range.insertNode(this.root);
   }
   get vdom() {
-    return this
+    return this;
   }
 }
 
@@ -263,56 +265,65 @@ let ToyReact = {
   // attributes 属性
   // children 子元素 数目不定
   createElement(type, attributes, ...children) {
-    // debugger
+    // debugger;
     // console.log(arguments) // 参数
     let element;
-    if (typeof type === 'string') { // 普通元素
+    if (typeof type === "string") {
+      // 普通元素
       element = new Elementwrapper(type);
-    } else { // 虚拟dom
+    } else if (Object.getPrototypeOf(type) === Component) {
+      // 虚拟dom
       element = new type();
+    } else if (typeof type === "function") {
+      element = type();
     }
     // console.log(element, 'element');
     // let element = document.createElement(type)
     for (const attr in attributes) {
-      element.setAttribute(attr, attributes[attr])
+      element.setAttribute(attr, attributes[attr]);
     }
     let insertChildren = (children) => {
       for (let child of children) {
         if (typeof child === "object" && child instanceof Array) {
           insertChildren(child);
         } else {
-          if (!(child instanceof Component) &&
+          if (
+            !(child instanceof Component) &&
             !(child instanceof Elementwrapper) &&
-            !(child instanceof TextWrapper)) {
+            !(child instanceof TextWrapper)
+          ) {
             child = String(child);
           }
           if (typeof child === "string") {
             child = new TextWrapper(child);
           }
-          element.appendChild(child)
+          element.appendChild(child);
         }
       }
-    }
+    };
     insertChildren(children);
     // document.body.appendChild(element)
-    return element
+    return element;
   },
   render(vdom, element) {
+    debugger;
     // vdom.mountTo(element) // 设计一个mountTo方法 vdom里面去做mountTo这件事情
     // element.appendChild(vdom) // 如果是实Dom
 
     let range = document.createRange();
     if (element.children.length) {
-      range.setStartAfter(element.lastChild);
-      range.setEndAfter(element.lastChild);
+      range.selectNodeContents(element);
+      range.deleteContents();
+      // range.setStartAfter(element.firstChild);
+      // range.setEndAfter(element.lastChild);
     } else {
       range.setStart(element, 0);
       range.setEnd(element, 0);
     }
     vdom.mountTo(range);
-  }
-}
+  },
+};
 
-ToyReact.Component = Component
+ToyReact.Component = Component;
 
-export default ToyReact
+export default ToyReact;

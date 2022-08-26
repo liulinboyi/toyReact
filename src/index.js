@@ -16,6 +16,7 @@ class Board extends Component {
   }
 
   render() {
+    console.log('Board')
     return (
       <div>
         <div className="board-row">
@@ -46,6 +47,7 @@ class Square extends Component {
   }
   render() {
     console.log(this.props, 'props')
+    console.log('Square')
       return (
         <button className="square" onClick={this.props.onClick}>
         {this.props.value ? this.props.value : ''}
@@ -99,6 +101,7 @@ class Game extends Component {
   }
 
   render() {
+    console.log('Game')
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
@@ -197,8 +200,16 @@ function calculateWinner(squares) {
 // <div>children</div>
 // </Mycomponent>
 
-let a = <Game />
+// let a = <Game />
 
+class App extends Component {
+  render() {
+    console.log('App')
+    return <Game />
+  }
+}
+
+let a = <App />
 console.log(a)
 ToyReact.render(a, document.body)
 
